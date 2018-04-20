@@ -1,13 +1,15 @@
 <template>
   <el-row class="warp">
+    <!--页面当前地址显示区域-->
     <el-col :span="24" class="warp-breadcrum">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/' }"><b>首页</b></el-breadcrumb-item>
         <el-breadcrumb-item>图书管理</el-breadcrumb-item>
-        <el-breadcrumb-item>图书列表</el-breadcrumb-item>
+        <el-breadcrumb-item>图书分类</el-breadcrumb-item>
       </el-breadcrumb>
     </el-col>
 
+    <!--自己新增的民情列表内容，学习的新内容都是新增到这里，怎样在这里实现循环展示呢？有了这个，就不用再修改新增页了；完全可以复用的-->
     <el-col :span="24" class="warp-main" v-loading="loading" element-loading-text="拼命加载中">
       <!--工具条-->
       <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
@@ -24,19 +26,31 @@
         </el-form>
       </el-col>
 
-      <!--列表，将返回的数据注入到books中，由于双向绑定直接将其注入到这个表格中,但是传回来的数据结构是怎样刚好插入这些其中的
-      -->
+      <!--列表-->
       <el-table :data="books" highlight-current-row @selection-change="selsChange" style="width: 100%;">
+
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column type="index" width="60"></el-table-column>
-
-        <!--这里的prop将books中的对象和这个条目之间建立了绑定的关系-->
-        <el-table-column prop="name" label="书名" sortable></el-table-column> <!-- 将其的分配完毕后，剩下的宽度都是这里的-->
-        <el-table-column prop="gender" label="性别"    width="60"></el-table-column>
-        <el-table-column prop="minority" label="民族"    width="60"></el-table-column>
-        <el-table-column prop="birthday" label="生日"    width="60"></el-table-column>
-
+        <el-table-column type="expand">
+          <template slot-scope="props">
+            <el-form label-position="left" inline class="demo-table-expand">
+              <el-form-item label="[图书简介]">
+                <span>{{ props.row.description }}</span>
+              </el-form-item>
+            </el-form>
+          </template>
+        </el-table-column>
+        <el-table-column prop="name" label="书名" sortable></el-table-column>
+        <el-table-column prop="author" label="作者" width="100" sortable></el-table-column>
+        <el-table-column prop="publishAt" label="出版日期" width="150" sortable></el-table-column>
+        <el-table-column label="操作" width="150">
+          <template slot-scope="scope">
+            <el-button size="small" @click="showEditDialog(scope.$index,scope.row)">编辑</el-button>
+            <el-button type="danger" @click="delBook(scope.$index,scope.row)" size="small">删除</el-button>
+          </template>
+        </el-table-column>
       </el-table>
+
       <!--工具条-->
       <el-col :span="24" class="toolbar">
         <el-button type="danger" @click="batchDeleteBook" :disabled="this.sels.length===0">批量删除</el-button>
@@ -89,14 +103,13 @@
       </el-dialog>
 
     </el-col>
-
-
-
   </el-row>
 </template>
 <script>
+
   import util from '../../common/util'
-  import API from '../../api/api_book_list';
+  import API from '../../api/api_book_category';
+
   export default{
     data(){
       return {
@@ -170,12 +183,12 @@
           limit: 10,
           name: that.filters.name
         };
+
         that.loading = true;
-        API.findList(params).then(function (result) {  //ajax请求返回的数据
-          that.loading = false;  //这个是啥意思呢？
+        API.findList(params).then(function (result) {
+          that.loading = false;
           if (result && result.books) {
             that.total = result.total;
-            console.log(JSON.stringify(result)+"结果");
             that.books = result.books;
           }
         }, function (err) {
@@ -195,21 +208,22 @@
         let that = this;
         this.$confirm('确认删除该记录吗?', '提示', {type: 'warning'}).then(() => {
           that.loading = true;
-          API.remove(row.id).then(function (result) {
-            that.loading = false;
-            if (result && parseInt(result.errcode) === 0) {
-              that.$message.success({showClose: true, message: '删除成功', duration: 1500});
-              that.search();
-            }
-          }, function (err) {
-            that.loading = false;
-            that.$message.error({showClose: true, message: err.toString(), duration: 2000});
-          }).catch(function (error) {
-            that.loading = false;
-            console.log(error);
-            that.$message.error({showClose: true, message: '请求出现异常', duration: 2000});
-          });
-        }).catch(() => {
+        API.remove(row.id).then(function (result) {
+          that.loading = false;
+          if (result && parseInt(result.errcode) === 0) {
+            that.$message.success({showClose: true, message: '删除成功', duration: 1500});
+            that.search();
+          }
+        }, function (err) {
+          that.loading = false;
+          that.$message.error({showClose: true, message: err.toString(), duration: 2000});
+        }).catch(function (error) {
+          that.loading = false;
+          console.log(error);
+          that.$message.error({showClose: true, message: '请求出现异常', duration: 2000});
+        });
+      }).catch(() => {
+
         });
       },
       //显示编辑界面
@@ -293,34 +307,30 @@
           type: 'warning'
         }).then(() => {
           that.loading = true;
-          API.removeBatch(ids).then(function (result) {
-            that.loading = false;
-            if (result && parseInt(result.errcode) === 0) {
-              that.$message.success({showClose: true, message: '删除成功', duration: 1500});
-              that.search();
-            }
-          }, function (err) {
-            that.loading = false;
-            that.$message.error({showClose: true, message: err.toString(), duration: 2000});
-          }).catch(function (error) {
-            that.loading = false;
-            console.log(error);
-            that.$message.error({showClose: true, message: '请求出现异常', duration: 2000});
-          });
-        }).catch(() => {
+        API.removeBatch(ids).then(function (result) {
+          that.loading = false;
+          if (result && parseInt(result.errcode) === 0) {
+            that.$message.success({showClose: true, message: '删除成功', duration: 1500});
+            that.search();
+          }
+        }, function (err) {
+          that.loading = false;
+          that.$message.error({showClose: true, message: err.toString(), duration: 2000});
+        }).catch(function (error) {
+          that.loading = false;
+          console.log(error);
+          that.$message.error({showClose: true, message: '请求出现异常', duration: 2000});
+        });
+      }).catch(() => {
 
         });
       }
     },
-    //mounted()。vue中有非常多的选项，这个属于生命周期钩子中的一个，当页面执行的时候触发这个函数；直接定义即可
     mounted() {
-      this.handleSearch(); //直接获取全部的数据
+      this.handleSearch()
     }
   }
-</script>
 
-<style>
-  .demo-table-expand label {
-    font-weight: bold;
-  }
-</style>
+
+
+</script>

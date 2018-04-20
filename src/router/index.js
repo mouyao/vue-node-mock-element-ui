@@ -4,7 +4,7 @@ import Home from '@/components/Home'
 import Dashboard from '@/components/Dashboard'
 
 import BookList from '@/components/book/list'
-import BookCategoryList from '@/components/bookcategory/list'
+import BookCategory from '@/components/book/category'
 
 import UserList from '@/components/user/list'
 import UserChangePwd from '@/components/user/changepwd'
@@ -13,9 +13,9 @@ import UserProfile from '@/components/user/profile'
 // 懒加载方式，当路由被访问的时候才加载对应组件
 const Login = resolve => require(['@/components/Login'], resolve)
 
-Vue.use(Router)
+Vue.use(Router);
 
-let router = new Router({
+let router = new Router({     //路由管理，实现页面之间的切换
 // mode: 'history',
   routes: [
     {
@@ -54,7 +54,7 @@ let router = new Router({
       iconCls: 'iconfont icon-books',
       children: [
         {path: '/book/list', component: BookList, name: '图书列表', menuShow: true},
-        {path: '/book/category', component: BookCategoryList, name: '图书分类', menuShow: true}
+        {path: '/book/category', component: BookCategory, name: '图书分类', menuShow: true}
       ]
     },
     {

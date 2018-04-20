@@ -1,5 +1,7 @@
 <template>
   <el-row class="container">
+
+
     <!--头部-->
     <el-col :span="24" class="topbar-wrap">
       <div class="topbar-logo topbar-btn">
@@ -19,14 +21,20 @@
             <el-dropdown-item>
               <div @click="jumpTo('/user/profile')"><span style="color: #555;font-size: 14px;">个人信息</span></div>
             </el-dropdown-item>
+
             <el-dropdown-item>
               <div @click="jumpTo('/user/changepwd')"><span style="color: #555;font-size: 14px;">修改密码</span></div>
             </el-dropdown-item>
-            <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
+
+            <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item><!---->
           </el-dropdown-menu>
+
+
         </el-dropdown>
       </div>
     </el-col>
+
+
 
     <!--中间-->
     <el-col :span="24" class="main">
@@ -37,8 +45,9 @@
           <i class="iconfont icon-menufold" v-show="!collapsed"></i>
           <i class="iconfont icon-menuunfold" v-show="collapsed"></i>
         </div>
-        <!--导航菜单-->
+        <!--导航菜单,这个是页面切换的主要思路-->
         <el-menu :default-active="defaultActiveIndex" router :collapse="collapsed" @select="handleSelect">
+
           <template v-for="(item,index) in $router.options.routes" v-if="item.menuShow">
             <el-submenu v-if="!item.leaf" :index="index+''">
               <template slot="title"><i :class="item.iconCls"></i><span slot="title">{{item.name}}</span></template>
@@ -52,15 +61,18 @@
               <i :class="item.iconCls"></i><span slot="title">{{item.children[0].name}}</span>
             </el-menu-item>
           </template>
+
+
         </el-menu>
       </aside>
 
-      <!--右侧内容区-->
+
+      <!--右侧主要展示内容区-->
       <section class="content-container">
         <div class="grid-content bg-purple-light">
           <el-col :span="24" class="content-wrapper">
             <transition name="fade" mode="out-in">
-              <router-view></router-view>
+              <router-view></router-view><!--这里的展示区域是怎样和组件建立起关系的呢-->
             </transition>
           </el-col>
         </div>
@@ -76,9 +88,13 @@
 
   export default {
     name: 'home',
+    //Vue实例有一个完整的生命周期，也就是从开始创建、初始化数据、编译模板、挂载Dom、渲染→更新→渲染、卸载等一系列过程，
+    // 我们称这是Vue的生命周期。通俗说就是Vue实例从创建到销毁的过程，就是生命周期。
+
+    //开始创建vue实例的钩子
     created(){
       bus.$on('setNickName', (text) => {
-        this.nickname = text;
+          this.nickname = text;
       })
 
       bus.$on('goto', (url) => {
@@ -88,6 +104,7 @@
         this.$router.push(url);
       })
     },
+    //页面上的数据都是从这里拿的，又是一个钩子
     data () {
       return {
         defaultActiveIndex: "0",
@@ -95,7 +112,13 @@
         collapsed: false,
       }
     },
+
+    //定义在页面上触发的函数
     methods: {
+      /**
+      *time:2018-04-20
+      *disc:控制页面模块切换的关键位置,实现页面之间的切换；
+      */
       handleSelect(index){
         this.defaultActiveIndex = index;
       },
@@ -103,10 +126,12 @@
       collapse: function () {
         this.collapsed = !this.collapsed;
       },
+      //跳转页面
       jumpTo(url){
         this.defaultActiveIndex = url;
         this.$router.push(url); //用go刷新
       },
+      //退出登录
       logout(){
         let that = this;
         this.$confirm('确认退出吗?', '提示', {
@@ -129,11 +154,12 @@
         }).catch(() => {});
       }
     },
+    //安装钩子函数
     mounted() {
-      let user = localStorage.getItem('access-user');
+      let user = localStorage.getItem('access-user'); //获取名字并将其值改变，就会自动显示到屏幕闪改了
       if (user) {
         user = JSON.parse(user);
-        this.nickname = user.nickname || '';
+        this.nickname = user.nickname+"牟垚" || '';
       }
     }
   }

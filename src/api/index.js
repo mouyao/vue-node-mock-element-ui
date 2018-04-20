@@ -6,16 +6,16 @@ import {bus} from '../bus.js'
 
 axios.defaults.withCredentials = true;
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';//配置请求头
+ //axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';//配置请求头
 
 //添加一个请求拦截器
-// axios.interceptors.request.use(function (config) {
-//   console.dir(config);
-//   return config;
-// }, function (error) {
-//   // Do something with request error
-//   return Promise.reject(error);
-// });
+ axios.interceptors.request.use(function (config) {
+  console.dir(config);
+   return config;
+ }, function (error) {
+  // Do something with request error
+  return Promise.reject(error);
+});
 
 // 添加一个响应拦截器
 axios.interceptors.response.use(function (response) {
@@ -42,7 +42,15 @@ export const POST = (url, params) => {
 
 export const GET = (url, params) => {
   return axios.get(`${base}${url}`, {params: params}).then(res => res.data)
-}
+};
+
+var apiUrl="http://116.62.139.94:8080/ResidentMap/";
+export const GETMY= (url, params) => {
+  console.log(`${apiUrl}${url}`+"接口");
+  return axios.get(`${apiUrl}${url}`).then(res => res.data)
+};
+
+
 
 export const PUT = (url, params) => {
   return axios.put(`${base}${url}`, params).then(res => res.data)

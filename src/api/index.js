@@ -44,13 +44,11 @@ export const GET = (url, params) => {
   return axios.get(`${base}${url}`, {params: params}).then(res => res.data)
 };
 
-var apiUrl="http://116.62.139.94:8080/ResidentMap/";
+let apiUrl="http://116.62.139.94:8080/ResidentMap/";
 export const GETMY= (url, params) => {
   console.log(`${apiUrl}${url}`+"接口");
-  return axios.get(`${apiUrl}${url}`).then(res => res.data)
+  return axios.get(`${apiUrl}${url}`,{params: params}).then(res => res.data)
 };
-
-
 
 export const PUT = (url, params) => {
   return axios.put(`${base}${url}`, params).then(res => res.data)

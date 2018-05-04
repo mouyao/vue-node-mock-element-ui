@@ -180,7 +180,7 @@
         let that = this;
         let params = {
           page: that.page,
-          limit: 10,
+          limit:10,
           name: that.filters.name
         };
 
@@ -189,6 +189,7 @@
           that.loading = false;
           if (result && result.books) {
             that.total = result.total;
+            console.log(result.books+"books192");
             that.books = result.books;
           }
         }, function (err) {

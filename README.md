@@ -104,13 +104,15 @@ npm run build
  >> 1.主要组件升级：vue.js升级到v2.4.4，element-ui升级到v1.4.4，其它组件升级
  >> 2.主界面左侧菜单栏修改，使用element-ui升级的导航组件支持折叠功能。
  >> 3.其它调整。
- 
+
  # 自己开始将民情用Vue来写
  > 2018-04-25（mouyao）
  >> 在原来的代码的结构上将民情的数据导入了book中的list.vue页面中，但是数据不能自动分页了？下次再来搞这个问题；
+>2018-05-05
+>测试了webstorm和GitHub打通的方法，遇到了这样的问题：
+>是因为本地分支和远程分支没有建立联系 (使用git branch -vv  可以查看本地分支和远程分支的关联关系),根据命令行提示只需要执行以下命令即可
+>解决方案：git branch --set-upstream-to=origin/master master
 
- > 2018-05-04
- >> 1.打通了webstorm和GitHub
 
 
 

@@ -8,7 +8,7 @@
       </el-breadcrumb>
     </el-col>
 
-    <el-col :span="24" class="warp-main" v-loading="loading" element-loading-text="拼命加载中">
+    <el-col :span="24" class="warp-main"  v-loading="loading" element-loading-text="拼命加载中">
       <!--工具条-->
       <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
         <el-form :inline="true" :model="filters">
@@ -89,8 +89,6 @@
       </el-dialog>
 
     </el-col>
-
-
 
   </el-row>
 </template>
@@ -173,10 +171,10 @@
         that.loading = true;
         API.findList(params).then(function (result) {  //ajax请求返回的数据
           that.loading = false;  //这个是啥意思呢？
-          if (result && result.books) {
-            that.total = result.total;
-            console.log(JSON.stringify(result)+"结果");
-            that.books = result.books;
+          if (result && result.data) {
+            that.total =56;
+            console.log(result.data+"结果");
+            that.books = result.data;
           }
         }, function (err) {
           that.loading = false;
@@ -312,7 +310,7 @@
         });
       }
     },
-    //mounted()。vue中有非常多的选项，这个属于生命周期钩子中的一个，当页面执行的时候触发这个函数；直接定义即可
+    //mounted()，vue中有非常多的选项，这个属于生命周期钩子中的一个，当页面执行的时候触发这个函数；直接定义即可
     mounted() {
       this.handleSearch(); //直接获取全部的数据
     }

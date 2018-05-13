@@ -1,5 +1,6 @@
 <template>
   <el-row class="warp">
+
     <el-col :span="24" class="warp-breadcrum">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/' }"><b>首页</b></el-breadcrumb-item>
@@ -171,10 +172,10 @@
         that.loading = true;
         API.findList(params).then(function (result) {  //ajax请求返回的数据
           that.loading = false;  //这个是啥意思呢？
-          if (result && result.data) {
-            that.total =56;
-            console.log(result.data+"结果");
-            that.books = result.data;
+          if (result && result.books) {
+            that.total =result.total;
+            console.log(result.books+"结果");
+            that.books = result.books;
           }
         }, function (err) {
           that.loading = false;

@@ -4,7 +4,9 @@ import Home from '@/components/Home'
 import Dashboard from '@/components/Dashboard'
 
 import BookList from '@/components/book/list'
-import BookCategory from '@/components/book/category'
+import Student_test from '@/components/book/student_test'
+import TodoList from '@/components/book/todo_list'
+
 
 import UserList from '@/components/user/list'
 import UserChangePwd from '@/components/user/changepwd'
@@ -54,7 +56,9 @@ let router = new Router({     //路由管理，实现页面之间的切换
       iconCls: 'iconfont icon-books',
       children: [
         {path: '/book/list', component: BookList, name: '图书列表', menuShow: true},
-        {path: '/book/category', component: BookCategory, name: '图书分类', menuShow: true}
+        {path: '/book/student_test', component:Student_test, name: '学生列表', menuShow: true},
+        {path: '/book/todo_list', component:TodoList, name: 'TodoList', menuShow: true}
+
       ]
     },
     {

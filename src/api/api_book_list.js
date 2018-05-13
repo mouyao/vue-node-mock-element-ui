@@ -8,8 +8,7 @@ export default {
 
   //查询获取book列表(通过page分页)
   findList: params => {
-    console.log(API.GETMY('committee_members/getall', params));
-    return API.GETMY('committee_members/getall', params);
+    return API.GET('/api/v1/books', params);
   },
 
   //查询获取一条book信息

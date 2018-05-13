@@ -34,17 +34,27 @@ axios.interceptors.response.use(function (response) {
 
 //基地址
 let base = '';  //接口代理地址参见：config/index.js中的proxyTable配置
-
+let apiUrl="http://127.0.0.1:9000/";
 //通用方法
 export const POST = (url, params) => {
   return axios.post(`${base}${url}`, params).then(res => res.data)
 }
 
+//通用方法
+export const POSTMY = (url, params) => {
+  return axios.post(`${apiUrl}${url}`, params).then(res => res.data)
+}
+
+export const DELETE_POST_MY = (url, params) => {
+  return axios.post(`${apiUrl}${url}`, params).then(res => res.data)
+}
+
+
 export const GET = (url, params) => {
   return axios.get(`${base}${url}`, {params: params}).then(res => res.data)
 };
 
-let apiUrl="http://116.62.139.94:8080/ResidentMap/";
+
 export const GETMY= (url, params) => {
   console.log(`${apiUrl}${url}`+"接口");
   return axios.get(`${apiUrl}${url}`,{params: params}).then(res => res.data)
@@ -54,9 +64,24 @@ export const PUT = (url, params) => {
   return axios.put(`${base}${url}`, params).then(res => res.data)
 }
 
+export const PUTMY = (url, params) => {
+  return axios.post(`${apiUrl}${url}`,params).then(res => res.data)
+}
+
+
+
 export const DELETE = (url, params) => {
   return axios.delete(`${base}${url}`, {params: params}).then(res => res.data)
 }
+
+
+
+
+
+export const DELETEMY = (url, params) => {
+  return axios.delete(`${apiUrl}${url}`,{params:params}).then(res => res.data)
+}
+
 
 export const PATCH = (url, params) => {
   return axios.patch(`${base}${url}`, params).then(res => res.data)

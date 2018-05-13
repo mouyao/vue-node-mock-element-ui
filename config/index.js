@@ -23,11 +23,11 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8081,
+    port: 8082,//配置前端项目端口号，很容易和别的端口号冲突。注意调节
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {
+    proxyTable: {  //后台api地址，专门获取数据的api
       '/api': {
         changeOrigin: true,
         target: 'http://127.0.0.1:3000',

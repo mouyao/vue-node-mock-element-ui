@@ -29,12 +29,18 @@
       <!--列表-->
       <el-table :data="books" highlight-current-row @selection-change="selsChange" style="width: 100%;">
 
-        <el-table-column type="selection" width="100"></el-table-column>
-        <el-table-column type="index" width="100"></el-table-column>
-        <el-table-column prop="name" label="姓名" sortable></el-table-column>
-        <el-table-column prop="id" label="编号" width="250" sortable></el-table-column>
+        <el-table-column type="selection" width="50"></el-table-column>
+        <el-table-column type="index" width="50"></el-table-column>
+        <el-table-column prop="name" label="姓名"    sortable></el-table-column>
+        <el-table-column prop="id" label="编号" width="150" sortable></el-table-column>
         <el-table-column prop="birthday" label="生日" width="250" sortable></el-table-column>
-        <el-table-column prop="address" label="地址" width="250" sortable></el-table-column>
+        <el-table-column prop="address" label="地址" width="150" sortable></el-table-column>
+        <el-table-column label="操作" width="150">
+          <template slot-scope="scope">
+            <el-button size="small" @click="showEditDialog(scope.$index,scope.row)">编辑</el-button>
+            <el-button type="danger" @click="delBook(scope.$index,scope.row)" size="small">删除</el-button>
+          </template>
+        </el-table-column>
       </el-table>
 
       <!--工具条-->
@@ -49,14 +55,14 @@
           <el-form-item label="书名" prop="name">
             <el-input v-model="editForm.name" auto-complete="off"></el-input>
           </el-form-item>
-          <el-form-item label="作者" prop="author">
-            <el-input v-model="editForm.author" auto-complete="off"></el-input>
+          <el-form-item label="编号" prop="id">
+            <el-input v-model="editForm.id" auto-complete="off"></el-input>
           </el-form-item>
-          <el-form-item label="出版日期">
-            <el-date-picker type="date" placeholder="选择日期" v-model="editForm.publishAt"></el-date-picker>
+          <el-form-item label="生日">
+            <el-date-picker type="date" placeholder="选择日期" v-model="editForm.birthday"></el-date-picker>
           </el-form-item>
-          <el-form-item label="简介" prop="description">
-            <el-input type="textarea" v-model="editForm.description" :rows="8"></el-input>
+          <el-form-item label="简介" prop="address">
+            <el-input type="textarea" v-model="editForm.address" :rows="8"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -70,13 +76,13 @@
           <el-form-item label="姓名" prop="name">
             <el-input v-model="addForm.name" auto-complete="off"></el-input>
           </el-form-item>
-          <el-form-item label="编号" prop="author">
+          <el-form-item label="编号" prop="id">
             <el-input v-model="addForm.id" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item label="生日">
             <el-date-picker type="date" placeholder="选择日期" v-model="addForm.birthday"></el-date-picker>
           </el-form-item>
-          <el-form-item label="地址" prop="description">
+          <el-form-item label="地址" prop="address">
             <el-input type="textarea" v-model="addForm.address" :rows="8"></el-input>
           </el-form-item>
         </el-form>
@@ -92,8 +98,7 @@
 <script>
 
   import util from '../../common/util'
-  import API from '../../api/api_book_category';
-
+  import API from '../../api/api_student_test';
   export default{
     data(){
       return {
@@ -121,11 +126,11 @@
           ]
         },
         editForm: {
-          id: 0,
+   /*       id: 0,*/
           name: '',
-          author: '',
-          publishAt: '',
-          description: ''
+          id: '',
+          birthday: '',
+          address: ''
         },
 
         //新增相关数据
@@ -193,9 +198,10 @@
         let that = this;
         this.$confirm('确认删除该记录吗?', '提示', {type: 'warning'}).then(() => {
           that.loading = true;
+          console.log(row.id+"999999999999999999");
         API.remove(row.id).then(function (result) {
           that.loading = false;
-          if (result && parseInt(result.errcode) === 0) {
+          if (result && parseInt(result.code) === 0) {
             that.$message.success({showClose: true, message: '删除成功', duration: 1500});
             that.search();
           }
@@ -223,10 +229,10 @@
           if (valid) {
             this.loading = true;
             let para = Object.assign({}, this.editForm);
-            para.publishAt = (!para.publishAt || para.publishAt == '') ? '' : util.formatDate.format(new Date(para.publishAt), 'yyyy-MM-dd');
-            API.update(para.id, para).then(function (result) {
+            para.birthday = (!para.birthday || para.birthday ==='') ? '' : util.formatDate.format(new Date(para.birthday), 'yyyy-MM-dd');
+            API.update(para.id,para).then(function (result) {
               that.loading = false;
-              if (result && parseInt(result.errcode) === 0) {
+              if (result && parseInt(result.code) === 0) {
                 that.$message.success({showClose: true, message: '修改成功', duration: 2000});
                 that.$refs['editForm'].resetFields();
                 that.editFormVisible = false;
@@ -261,10 +267,11 @@
           if (valid) {
             that.loading = true;
             let para = Object.assign({}, this.addForm);
-            para.publishAt = (!para.publishAt || para.publishAt === '') ? '' : util.formatDate.format(new Date(para.publishAt), 'yyyy-MM-dd');
+            para.birthday = (!para.birthday || para.birthday === '') ? '' : util.formatDate.format(new Date(para.birthday), 'yyyy-MM-dd');
             API.add(para).then(function (result) {
               that.loading = false;
-              if (result && parseInt(result.errcode) === 0) {
+              console.log(JSON.stringify(result)+"测试的技术局");
+              if (result && parseInt(result.code) === 0) {
                 that.$message.success({showClose: true, message: '新增成功', duration: 2000});
                 that.$refs['addForm'].resetFields();
                 that.addFormVisible = false;

@@ -70,7 +70,7 @@
   import DialogTest from './Dialog.vue';
 
   export default {
-    components:{ DialogTest},  //这里注册组件，命名注意不能使用平常的名称
+    components:{ DialogTest},  //这里注册组件，命名注意不能使用平常的名称，一定要相互区分
     data() {
       return {
         currentDate: new Date(),
@@ -81,14 +81,13 @@
         titleProps:"我是来自父组件的测试数据"
       };
     },
-    mounted: function () {
+    mounted: function (){
       var _this = this;
       //基于准备好的dom，初始化echarts实例
       this.chartColumn = echarts.init(document.getElementById('chartColumn'));
       this.chartBar = echarts.init(document.getElementById('chartBar'));
       this.chartLine = echarts.init(document.getElementById('chartLine'));
       this.chartPie = echarts.init(document.getElementById('chartPie'));
-
       this.chartColumn.setOption({
         title: { text: 'Column Chart' },
         tooltip: {},

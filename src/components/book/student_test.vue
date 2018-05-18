@@ -93,12 +93,10 @@
       </el-dialog>
 
 
-
     </el-col>
   </el-row>
 </template>
-<script>
-
+<script type="text/ecmascript-6">
   import util from '../../common/util'
   import API from '../../api/api_student_test';
 
@@ -135,7 +133,6 @@
           birthday: '',
           address: ''
         },
-
         //新增相关数据
         addFormVisible: false,//新增界面是否显示
         addLoading: false,
@@ -181,7 +178,6 @@
           that.loading = false;
           if (result && result.books) {
             that.total = result.total;
-            console.log(result.books+"books192");
             that.books = result.books;
           }
         }, function (err) {
@@ -189,7 +185,6 @@
           that.$message.error({showClose: true, message: err.toString(), duration: 2000});
         }).catch(function (error) {
           that.loading = false;
-          console.log(error);
           that.$message.error({showClose: true, message: '请求出现异常', duration: 2000});
         });
       },
@@ -201,7 +196,6 @@
         let that = this;
         this.$confirm('确认删除该记录吗?', '提示', {type: 'warning'}).then(() => {
           that.loading = true;
-          console.log(row.id+"999999999999999999");
         API.remove(row.id).then(function (result) {
           that.loading = false;
           if (result && parseInt(result.code) === 0) {
@@ -213,7 +207,6 @@
           that.$message.error({showClose: true, message: err.toString(), duration: 2000});
         }).catch(function (error) {
           that.loading = false;
-          console.log(error);
           that.$message.error({showClose: true, message: '请求出现异常', duration: 2000});
         });
       }).catch(() => {
@@ -248,7 +241,6 @@
               that.$message.error({showClose: true, message: err.toString(), duration: 2000});
             }).catch(function (error) {
               that.loading = false;
-              console.log(error);
               that.$message.error({showClose: true, message: '请求出现异常', duration: 2000});
             });
           }
@@ -273,7 +265,6 @@
             para.birthday = (!para.birthday || para.birthday === '') ? '' : util.formatDate.format(new Date(para.birthday), 'yyyy-MM-dd');
             API.add(para).then(function (result) {
               that.loading = false;
-              console.log(JSON.stringify(result)+"测试的技术局");
               if (result && parseInt(result.code) === 0) {
                 that.$message.success({showClose: true, message: '新增成功', duration: 2000});
                 that.$refs['addForm'].resetFields();
@@ -287,7 +278,6 @@
               that.$message.error({showClose: true, message: err.toString(), duration: 2000});
             }).catch(function (error) {
               that.loading = false;
-              console.log(error);
               that.$message.error({showClose: true, message: '请求出现异常', duration: 2000});
             });
 
@@ -295,7 +285,7 @@
         });
       },
       //批量删除
-      batchDeleteBook: function () {
+      batchDeleteBook: function (){
         let ids = this.sels.map(item => item.id).toString();
         let that = this;
         this.$confirm('确认删除选中记录吗？', '提示', {
@@ -313,7 +303,6 @@
           that.$message.error({showClose: true, message: err.toString(), duration: 2000});
         }).catch(function (error) {
           that.loading = false;
-          console.log(error);
           that.$message.error({showClose: true, message: '请求出现异常', duration: 2000});
         });
       }).catch(() => {
@@ -325,7 +314,4 @@
       this.handleSearch()
     }
   }
-
-
-
 </script>

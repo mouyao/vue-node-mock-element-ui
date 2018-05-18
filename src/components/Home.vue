@@ -86,7 +86,7 @@
 
 
 </template>
-<script>
+<script type="text/ecmascript-6">
   import {bus} from '../bus.js'
   import API from '../api/api_user';
 

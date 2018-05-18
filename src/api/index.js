@@ -49,14 +49,11 @@ export const DELETE_POST_MY = (url, params) => {
   return axios.post(`${apiUrl}${url}`, params).then(res => res.data)
 }
 
-
 export const GET = (url, params) => {
   return axios.get(`${base}${url}`, {params: params}).then(res => res.data)
 };
 
-
 export const GETMY= (url, params) => {
-  console.log(`${apiUrl}${url}`+"接口");
   return axios.get(`${apiUrl}${url}`,{params: params}).then(res => res.data)
 };
 
@@ -68,20 +65,13 @@ export const PUTMY = (url, params) => {
   return axios.post(`${apiUrl}${url}`,params).then(res => res.data)
 }
 
-
-
 export const DELETE = (url, params) => {
   return axios.delete(`${base}${url}`, {params: params}).then(res => res.data)
 }
 
-
-
-
-
 export const DELETEMY = (url, params) => {
   return axios.delete(`${apiUrl}${url}`,{params:params}).then(res => res.data)
 }
-
 
 export const PATCH = (url, params) => {
   return axios.patch(`${base}${url}`, params).then(res => res.data)

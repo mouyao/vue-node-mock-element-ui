@@ -8,7 +8,6 @@ import * as API from './' //引入所有的外侧的js文件内容
 export default {
   //查询获取book列表(通过page分页)
   findList: params => {
-    console.log(API.GETMY('getAll', params));
     return API.GETMY('getAll', params);
   },
   //查询获取一条book信息

@@ -4,14 +4,16 @@ import Home from '@/components/Home'
 import Dashboard from '@/components/Dashboard'
 
 
+/*book汇总*/
 import BookList from '@/components/book/list'
 import Student_test from '@/components/book/student_test'
-import TodoList from '@/components/book/todo_list'
 
+/*myComp*/
+import TodoList from '@/components/myComp/todo_list'
+import Extend from '@/components/myComp/extend'
+import Lunbo  from '@/components/myComp/lunbo'
 
-/*import Extend from '@/components/global/Extend'*/
-
-
+/*user*/
 import UserList from '@/components/user/list'
 import UserChangePwd from '@/components/user/changepwd'
 import UserProfile from '@/components/user/profile'
@@ -22,7 +24,7 @@ const Login = resolve => require(['@/components/Login'], resolve);
 Vue.use(Router);  //在vue中加载router插件的方法
 
 
-let router = new Router({     //路由管理，实现页面之间的切换
+let router = new Router({ //路由管理，实现页面之间的切换
 // mode: 'history',
   routes: [
     {
@@ -61,20 +63,21 @@ let router = new Router({     //路由管理，实现页面之间的切换
       iconCls: 'iconfont icon-books',
       children: [
         {path: '/book/list', component: BookList, name: '图书列表', menuShow: true},
-        {path: '/book/student_test', component:Student_test, name: '学生列表', menuShow: true},
-        {path: '/book/todo_list', component:TodoList, name: 'TodoList', menuShow: true},
+        {path: '/book/student_test', component:Student_test, name: '学生列表', menuShow: true}
       ]
     },
-   /* {
+    {
       path: '/',
-      component: Home,
-      name: '全局API',
+      component:Home,
+      name: '我写的组件',
       menuShow: true,
       iconCls: 'iconfont icon-books',
       children: [
-        {path: '/global/Extend',component:Extend, name: '全局API-Extend', menuShow: true},
+        {path: '/myComp/todo_list', component:TodoList, name: 'TodoList', menuShow: true},
+        {path: '/myComp/lunbo', component:Lunbo, name: '轮播图', menuShow: true},
+        {path: '/myComp/extend',component:Extend,name:'空白组件', menuShow: true}
       ]
-    },*/
+    },
     {
       path: '/',
       component: Home,

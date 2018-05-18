@@ -12,7 +12,7 @@
           <el-col :span="8">
             <el-card :body-style="{ padding: '0px' }">
               <img src="../assets/images/forest.png" class="image">
-              <div style="padding: 14px;">
+              <div style="padding:14px;">
                 <span>一个例子而已</span>
                 <div class="bottom clearfix">
                   <time class="time">{{ currentDate }}</time>
@@ -26,7 +26,7 @@
               <div style="padding: 14px;">
                 <span>我是一张卡片</span>
                 <div class="bottom clearfix">
-                  <time class="time">{{ currentDate }}</time>
+                  <time class="time">{{currentDate}}</time>
                 </div>
               </div>
             </el-card>
@@ -34,7 +34,7 @@
           <el-col :span="8">
             <el-card :body-style="{ padding: '0px' }">
               <img src="../assets/images/sunshine.png" class="image">
-              <div style="padding: 14px;">
+              <div style="padding:14px;">
                 <span>快乐生活每一天</span>
                 <div class="bottom clearfix">
                   <time class="time">{{ currentDate }}</time>
@@ -58,55 +58,27 @@
             <a href="http://echarts.baidu.com/examples.html" target="_blank" style="float: right;">more>></a>
           </el-col>
         </el-row>
+        <!--引入组件-->
+        <DialogTest   v-bind:titleProps = "titleProps"  @getInfoFromSon="getInfoFromSon" > </DialogTest>
       </section>
-
     </el-col>
   </el-row>
 </template>
-<style>
-  .time {
-    font-size: 13px;
-    color: #999;
-  }
-
-  .bottom {
-    margin-top: 13px;
-    line-height: 12px;
-  }
-
-  .image {
-    width: 100%;
-    display: block;
-  }
-
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
-
-  .clearfix:after {
-    clear: both
-  }
-
-  .chart-container {
-    width: 100%;
-  }
-  .chart-container .el-col {
-    padding: 30px 20px;
-  }
-</style>
-
-<script>
+<script  type="text/ecmascript-6">
   import echarts from 'echarts'
+  /*导入子组件的方法*/
+  import DialogTest from './Dialog.vue';
+
   export default {
+    components:{ DialogTest},  //这里注册组件，命名注意不能使用平常的名称
     data() {
       return {
         currentDate: new Date(),
         chartColumn: null,
         chartBar: null,
         chartLine: null,
-        chartPie: null
+        chartPie: null,
+        titleProps:"我是来自父组件的测试数据"
       };
     },
     mounted: function () {
@@ -257,6 +229,44 @@
           }
         ]
       });
+    },
+    methods:{
+      getInfoFromSon(...data){
+        console.log("来自子组件的信息是:",data);
+       }
     }
   }
 </script>
+<style>
+  .time {
+    font-size: 13px;
+    color: #999;
+  }
+
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+
+  .image {
+    width: 100%;
+    display: block;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+
+  .clearfix:after {
+    clear: both
+  }
+
+  .chart-container {
+    width: 100%;
+  }
+  .chart-container .el-col {
+    padding: 30px 20px;
+  }
+</style>

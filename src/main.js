@@ -4,12 +4,16 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
+
+
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/iconfont.css'
 import '@/assets/styles/main.scss'
 
-Vue.config.productionTip = false
-Vue.use(ElementUI)
+
+Vue.config.productionTip = false;
+Vue.use(ElementUI);
+
 
 /* eslint-disable no-new */
 new Vue({
@@ -17,4 +21,4 @@ new Vue({
   router,
   template: '<App/>',
   components: {App}
-})
+});

@@ -19,21 +19,21 @@
     </div>
   </div>
 </template>
-<script>
+<script type="text/ecmascript-6">
   /*
-  * vue2.0和Vue1.0还是存在很大的区别是，在1.0中存在new Vue的语法，2.0中直接建议换成export default的形式来
-  * 组织代码；在这个项目中，多将看到的例子引入进来，在事件中学习是最快的；
+  * vue2.0和Vue1.0还是存在很大的区别是，在1.0中存在new Vue的语法，
+  * 2.0中直接建议换成export default的形式来组织代码；在这个项目中，多将看到的例子引入进来，在事件中学习是最快的；
   * */
   export default {
     name: 'todo',
-    data() {
+    data() {   //专门用于存储页面上的数据的仓库
       return {
         todoList:[],
         text:'',
         state: false,
       }
     },
-    methods:{
+    methods:{ //处理页面数据的方法，在操控data中的对象的同时，框架帮我们主动同步到页面上；
       //添加
       add(){
         if(this.text ===''){
@@ -52,7 +52,7 @@
       },
       //删除选中
       remove(){
-        this.todoList = this.todoList.filter((index) => !index.state)
+        this.todoList = this.todoList.filter((index) => !index.state);
       },
       //编辑
       edit(index){
@@ -60,14 +60,19 @@
         this.todoList.splice(index,1);
       }
     },
-    //计算属性
+    //计算属性,当数据变化时，会触发的函数全部写在这里；生命周期函数
     computed: {
       select() {
         return this.todoList.filter((index) => index.state == true)
       }
     }
   }
+  /**
+   * @date: 2018-05-16
+   * @Desc: Vue中的生命周期函数有哪些？钩子函数有哪些？之间有什么关系？
+  */
 </script>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>

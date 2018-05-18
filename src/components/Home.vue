@@ -1,7 +1,5 @@
 <template>
-  <el-row class="container">
-
-
+<el-row class="container">
     <!--头部-->
     <el-col :span="24" class="topbar-wrap">
       <div class="topbar-logo topbar-btn">
@@ -78,16 +76,23 @@
           </el-col>
         </div>
       </section>
+      <!--引入设计的一个组件-->
+
+
+
     </el-col>
-
   </el-row>
-</template>
 
+
+
+</template>
 <script>
   import {bus} from '../bus.js'
   import API from '../api/api_user';
 
+
   export default {
+
     name: 'home',
     //Vue实例有一个完整的生命周期，也就是从开始创建、初始化数据、编译模板、挂载Dom、渲染→更新→渲染、卸载等一系列过程，
     // 我们称这是Vue的生命周期。通俗说就是Vue实例从创建到销毁的过程，就是生命周期。
@@ -97,7 +102,6 @@
       bus.$on('setNickName', (text) => {
           this.nickname = text;
       })
-
       bus.$on('goto', (url) => {
         if (url === "/login") {
           localStorage.removeItem('access-user');
@@ -111,6 +115,7 @@
         defaultActiveIndex: "0",
         nickname: '',
         collapsed: false,
+      /*  dataByParent : true*/
       }
     },
 

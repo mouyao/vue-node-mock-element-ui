@@ -14,6 +14,7 @@
             @click="change(index)" :key="index"></span>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -56,10 +57,11 @@
   }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style scoped>
   /*
   *在写组件的样式的时候，因为哥哥组件最后会和父组件拼成一个大的页面，所以命名的时候要带上本页的名字，不然会进行覆盖的；
   *还有更加先进的方法，在style中加入 scoped  字段，表明，样式仅仅应用于当前组件之上；非常的先进；
+  *这个知识点一定要记住了；
   */
   * {
     margin: 0;
@@ -117,5 +119,12 @@
   }
   .image-leave{
     transform: translateX(0);
+  }
+  input{
+    width:200px;
+    height:60px;
+    color: #500a0c;
+    background-color: #4A5064;
+
   }
 </style>

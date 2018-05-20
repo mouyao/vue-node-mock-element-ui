@@ -10,8 +10,9 @@ import Student_test from '@/components/book/student_test'
 
 /*myComp*/
 import TodoList from '@/components/myComp/todo_list'
-import Extend from '@/components/myComp/extend'
 import Lunbo  from '@/components/myComp/lunbo'
+import VueX_parent  from '@/components/myComp/VueX_parent'
+import VueX  from '@/components/myComp/VueX'
 
 /*user*/
 import UserList from '@/components/user/list'
@@ -75,7 +76,8 @@ let router = new Router({ //路由管理，实现页面之间的切换
       children: [
         {path: '/myComp/todo_list', component:TodoList, name: 'TodoList', menuShow: true},
         {path: '/myComp/lunbo', component:Lunbo, name: '轮播图', menuShow: true},
-        {path: '/myComp/extend',component:Extend,name:'空白组件', menuShow: true}
+        {path: '/myComp/VueX_parent',component:VueX_parent,name:'VueX父组件', menuShow: true},
+        {path: '/myComp/VueX',component:VueX,name:'VueX子组件', menuShow: true}
       ]
     },
     {

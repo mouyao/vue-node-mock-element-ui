@@ -17,7 +17,9 @@
         <p v-show="todoList.length == 0">暂无数据！</p>
       </ul>
     </div>
+    <input type="button" @click="getCityName()" value="点击获取vuex中的值"/>
   </div>
+
 </template>
 <script type="text/ecmascript-6">
   /*
@@ -58,6 +60,10 @@
       edit(index){
         this.text = this.todoList[index].value;
         this.todoList.splice(index,1);
+      },
+      getCityName(){
+        // 调用vuex的ations设置城市的值，调用VueX中存储的数据
+        alert(this.$store.getters.getCityFn);
       }
     },
     //计算属性,当数据变化时，会触发的函数全部写在这里；生命周期函数

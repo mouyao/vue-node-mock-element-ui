@@ -13,6 +13,7 @@ import TodoList from '@/components/myComp/todo_list'
 import Lunbo  from '@/components/myComp/lunbo'
 import VueX_parent  from '@/components/myComp/VueX_parent'
 import VueX  from '@/components/myComp/VueX'
+import Custom_instruction  from  '@/components/myComp/custom_instruction'
 
 /*user*/
 import UserList from '@/components/user/list'
@@ -23,6 +24,7 @@ import UserProfile from '@/components/user/profile'
 // 懒加载方式，当路由被访问的时候才加载对应组件
 const Login = resolve => require(['@/components/Login'], resolve);
 Vue.use(Router);  //在vue中加载router插件的方法
+
 
 
 let router = new Router({ //路由管理，实现页面之间的切换
@@ -77,7 +79,8 @@ let router = new Router({ //路由管理，实现页面之间的切换
         {path: '/myComp/todo_list', component:TodoList, name: 'TodoList', menuShow: true},
         {path: '/myComp/lunbo', component:Lunbo, name: '轮播图', menuShow: true},
         {path: '/myComp/VueX_parent',component:VueX_parent,name:'VueX父组件', menuShow: true},
-        {path: '/myComp/VueX',component:VueX,name:'VueX子组件', menuShow: true}
+        {path: '/myComp/VueX',component:VueX,name:'VueX子组件', menuShow: true},
+        {path: '/myComp/custom_instruction',component:Custom_instruction,name:'自定义指令', menuShow: true}
       ]
     },
     {

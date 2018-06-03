@@ -106,13 +106,33 @@ npm run build
 
  # 自己开始将民情用Vue来写
  > 2018-04-25（mouyao）
- >> 在原来的代码的结构上将民情的数据导入了book中的list.vue页面中，但是数据不能自动分页了？下次再来搞这个问题；
+ >> 在原来的代码的结构上将民情的数据导入了book中的list.vu/e页面中，但是数据不能自动分页了？下次再来搞这个问题；
 >2018-05-05
 >测试了webstorm和GitHub打通的方法，遇到了这样的问题：
->是因为本地分支和远程分支没有建立联系 (使用git branch -vv  可以查看本地分支和远程分支的关联关系),根据命令行提示只需要执行以下命令即可
+>是因为本地分支和远程分支没有建立联系 (使用git branch -vv  可以查看本地分支和远程分支的关联关系),根据命令
+行提示只需要执行以下命令即可
 >解决方案：git branch --set-upstream-to=origin/master master
 
+ >2018-05-15
+ >>在myComp中添加了lunbo.vue/todolist.vue两个案例，说你MVVM框架相对于传统的MVC架构的好处，如果todo_list
+ 完全使用jq的方法来处理，那代码量将会非常庞大
+ 
+  >2018-05-22
+  >>添加了VueX.vue页面，理解VueX在大型项目中，当一个页面将数据进行修改之后，别的页面也需要进行相应的数据的
+  修改，VueX相当于h5中的localStorage，其将数据存储起来，各个页面都可以使用，做到数据的共享
+  >>在使用的时候，要先建立store-store.js(数据存储容器)将数据存储起来，使用前必须要在main.js中引入才行，
+  在main.js中引入的数据容器在后边的页面中都能进行使用了；其相当于是一个入口
+    //使用vuex
+    import store from './components/store/store.js';
+    
+  >2018-05-28
+   >>在Dashboard中引入了子组件页面Dialog.vue实现了页面的复用；
+   同时，父组件使用prop方法将数据传给了子组件，子组件通过events将数据传给父组件（$.emit） 
 
+ >2018-06-03
+ >>在myComp中添加了custom_instruction.vue文件，自定义组件的内容进行介绍，通过定义autoFocus(v-autoFocus标签)
+ 来说明，我们可以自定义自己的指令，使用directive方法即可，在其中涉及到五个钩子函数，inserted、bind、update、
+ componentUpdated、unbind五个钩子函数，通过这五个钩子函数我们可以对绑定了该指令的元素进行相应的操作
 
 
 

@@ -9,7 +9,6 @@ import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/iconfont.css'
 import '@/assets/styles/main.scss'
 
-
 // 使用vuex
 import store from './components/store/store.js';
 
@@ -24,3 +23,5 @@ new Vue({
   template: '<App/>',
   components: { App }
 });
+
+

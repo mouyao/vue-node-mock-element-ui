@@ -30,7 +30,7 @@
         titleTwo:"点击将数据传给父组件"   //这里直接访问的就是父亲组件的数据，十分的方便；
       }
     },
-    props: {  //道具，父亲元素和子元素通信的通道和方法，怎样将其和上边的title建立关系
+    props: {    //道具，父亲元素和子元素通信的通道和方法，怎样将其和上边的title建立关系
       titleProps:{
            type:String,
            required:true

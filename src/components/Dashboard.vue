@@ -67,7 +67,7 @@
 <script  type="text/ecmascript-6">
   import echarts from 'echarts'
   /*导入子组件的方法*/
-  import DialogTest from './Dialog.vue';
+  import DialogTest from './Dialog';  //将Dialog.vue以组件的形式引入进来
 
   export default {
     components:{ DialogTest},  //这里注册组件，命名注意不能使用平常的名称，一定要相互区分
@@ -78,7 +78,7 @@
         chartBar: null,
         chartLine: null,
         chartPie: null,
-        titleProps:"我是来自父组件的测试数据"
+        titleProps:"我是来自父组件的测试数据" //
       };
     },
     mounted: function (){
@@ -230,7 +230,7 @@
       });
     },
     methods:{
-      getInfoFromSon(...data){
+      getInfoFromSon(...data){ //父组件通过这个方法从子组件获取数据，
         console.log("来自子组件的信息是:",data);
        }
     }

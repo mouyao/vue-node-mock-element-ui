@@ -11,8 +11,8 @@ export default {
     return API.GETMY('getAll', params);
   },
   //查询获取一条book信息
-  findById: id => {
-    return API.GET(`/api/v1/books/${id}`)
+  findById:id => {
+    return API.GETMY("checkById",id);
   },
   add: params => {
     return API.POSTMY("Insert", params)

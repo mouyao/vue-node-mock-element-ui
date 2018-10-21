@@ -15,10 +15,10 @@
       <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
         <el-form :inline="true" :model="filters">
           <el-form-item>
-            <el-input v-model="filters.name" placeholder="书名" @keyup.enter.native="handleSearch"></el-input>
+            <el-input v-model="filters.id" placeholder="书名" @keyup.enter.native="handleSearch"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" v-on:click="handleSearch">查询</el-button>
+            <el-button type="primary" v-on:click="handleSearchWithId">查询</el-button>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="showAddDialog">新增</el-button>
@@ -160,6 +160,9 @@
         this.page = val;
         this.search();
       },
+      /*
+      *查询所有的存储的数据的方法
+       */
       handleSearch(){
         this.total = 0;
         this.page = 1;
@@ -172,9 +175,38 @@
           limit:10,
           name: that.filters.name
         };
-
         that.loading = true;
         API.findList(params).then(function (result) {
+          that.loading = false;
+          if (result && result.books) {
+            that.total = result.total;
+            that.books = result.books;
+          }
+        }, function (err) {
+          that.loading = false;
+          that.$message.error({showClose: true, message: err.toString(), duration: 2000});
+        }).catch(function (error) {
+          that.loading = false;
+          that.$message.error({showClose: true, message: '请求出现异常', duration: 2000});
+        });
+      },
+      /*
+      *按照名字查询的人
+       */
+      handleSearchWithId(){
+        this.total = 0;
+        this.page = 1;
+        this.searchById();
+      },
+      searchById(){
+        let that = this;
+        let params = {
+          page:that.page,
+          limit:10,
+          id: that.filters.id
+        };
+        that.loading = true;
+        API.findById(params).then(function (result){
           that.loading = false;
           if (result && result.books) {
             that.total = result.total;

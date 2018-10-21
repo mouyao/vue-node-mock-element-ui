@@ -34,7 +34,7 @@ axios.interceptors.response.use(function (response) {
 
 //基地址
 let base = '';  //接口代理地址参见：config/index.js中的proxyTable配置
-let apiUrl="http://127.0.0.1:9000/";
+let apiUrl="http://127.0.0.1:8082/";
 //通用方法
 export const POST = (url, params) => {
   return axios.post(`${base}${url}`, params).then(res => res.data)
